@@ -10,6 +10,8 @@ import string
 import requests
 from bs4 import BeautifulSoup
 
+BASIC_URL_FORMAT = "https://www.instagram.com/"
+
 
 print("Hey there, i will tell you the amount of followers for the following Instagram accounts.")
 print("Just make sure to type the account name correctly, otherwise I cannot help you! :(")
@@ -31,8 +33,6 @@ def get_content(URL, name):
 # this function searches for the followers in the parsed html page and returns its value
 # if there is no such an account it returns false
 def get_followers(content):
-    # title = content.select("title")
-    # title_string = title[0].getText()
     try:
         desc = content.find("meta", property="og:description")
         s = desc.attrs['content']
@@ -42,7 +42,7 @@ def get_followers(content):
         return number_of_followers
     except AttributeError:
         print("There is no such user!")
-        return False
+        return None
 
 
 def print_dict(dict):
@@ -51,17 +51,17 @@ def print_dict(dict):
 
 
 names = {}
-basic_URL_format = "https://www.instagram.com/"
 
 # this is basically the program code where everything happens
 while True:
 
     account_name = input("Enter the account: ")
 
+    # NOTE: "q" is not a valid Instagram handle because they must be at least 3 characters
     if account_name == "q":
         break
     else:
-        URL = basic_URL_format + account_name + "/"
+        URL = BASIC_URL_FORMAT + account_name + "/"
         # getting the html content from the users insta page parsed with BeautifulSoup
         content = get_content(URL, account_name)
         # returning the number_of_followers. if the account does not exist returns False
