@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 
 print("Hey there, i will tell you the amount of followers for the following Instagram accounts.")
 print("Just make sure to type the account name correctly, otherwise I cannot help you! :(")
-print("You can press q to quit and print out the results.")
+print("You can press q to quit anytime.")
 
 
 # this functions gets the html content from an instas user page and parses it with beautifulsoup
